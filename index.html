@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0b1220" />
+    <title>Buildly — AI Website Generator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
+    <header class="top">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">B</div>
+        <div class="brandText">
+          <div class="name">Buildly</div>
+          <div class="tag">Generate a website from a prompt</div>
+        </div>
+      </div>
+      <a class="link" href="https://platform.openai.com/" target="_blank" rel="noreferrer">API</a>
+    </header>
+
+    <main class="shell">
+      <section class="panel">
+        <h1 class="h1">Describe the website you want.</h1>
+        <p class="sub">
+          Buildly will generate a small static site (HTML/CSS/JS), show a live preview, and let you download a ZIP.
+        </p>
+
+        <form id="form" class="form">
+          <label class="field">
+            <span class="label">OpenAI API key (for static mode)</span>
+            <input
+              id="apiKey"
+              class="input"
+              type="password"
+              placeholder="sk-..."
+              autocomplete="off"
+              inputmode="text"
+            />
+            <span class="label"
+              >If you run the Node server, you can leave this empty (Buildly will use the server instead).</span
+            >
+          </label>
+
+          <div class="row">
+            <label class="field">
+              <span class="label">Website name</span>
+              <input id="appName" class="input" value="Buildly Site" autocomplete="off" />
+            </label>
+            <label class="field">
+              <span class="label">Primary color</span>
+              <input id="primaryColor" class="input color" type="color" value="#7c3aed" />
+            </label>
+          </div>
+
+          <label class="field">
+            <span class="label">Prompt</span>
+            <textarea
+              id="prompt"
+              class="textarea"
+              rows="8"
+              placeholder="Example: A modern portfolio site for a photographer with a hero section, gallery, testimonials, and contact form."
+              required
+            ></textarea>
+          </label>
+
+          <div class="row">
+            <label class="field">
+              <span class="label">Style</span>
+              <input id="style" class="input" value="modern, clean, responsive" />
+            </label>
+            <label class="field">
+              <span class="label">Pages</span>
+              <select id="pages" class="input">
+                <option value="single page" selected>Single page</option>
+                <option value="multi-page (home, about, contact)">Multi-page (home, about, contact)</option>
+                <option value="landing page">Landing page</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="actions">
+            <button id="generateBtn" class="btn" type="submit">
+              <span class="btnText">Generate</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+            <button id="downloadBtn" class="btn secondary" type="button" disabled>Download ZIP</button>
+            <button id="resetBtn" class="btn ghost" type="button">Reset</button>
+          </div>
+
+          <div id="status" class="status" role="status" aria-live="polite"></div>
+        </form>
+      </section>
+
+      <section class="panel previewPanel">
+        <div class="tabs">
+          <div class="tabsLeft">
+            <div class="tabsTitle">Files</div>
+            <div id="tabs" class="tabList" role="tablist" aria-label="Generated files"></div>
+          </div>
+          <div class="tabsRight">
+            <button id="copyBtn" class="smallBtn" type="button" disabled>Copy file</button>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="codeWrap">
+            <pre class="code"><code id="code" class="codeInner">Generate something to see code here.</code></pre>
+          </div>
+          <div class="iframeWrap">
+            <div class="iframeTop">
+              <div class="pill">Preview</div>
+              <div class="hint">Renders `index.html`</div>
+            </div>
+            <iframe id="preview" class="iframe" title="Preview"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="muted">Buildly © <span id="year"></span></div>
+      <div class="muted">Tip: be specific (sections, tone, colors, content).</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
